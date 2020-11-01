@@ -60,11 +60,12 @@ class Digger
     private static void Main(string[] args)
     {
         // Inputs 
-        Console.WriteLine("Enter Path: ");
-        string directory = Console.ReadLine();
-        Console.WriteLine("Enter output file: ");
-        string outputFile= Console.ReadLine();
-
+//        Console.WriteLine("Enter Path: ");
+//        string directory = Console.ReadLine();
+//        Console.WriteLine("Enter output file: ");
+//        string outputFile= Console.ReadLine();
+        string directory = "/home/briandrennan/Projects/Digger";
+        string outputFile = "output.html";
 
         // Init our digger
         Digger FileDigger = new Digger();
