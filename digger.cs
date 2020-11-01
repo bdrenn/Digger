@@ -43,8 +43,8 @@ class Digger
             string size = FormatByteSize(new FileInfo(file).Length);
 
             filesList.Add(new XElement("File", 
-                        new XAttribute ("FileName", $"{file}"),
-                        new XAttribute("Size", $"{size}")
+                        new XElement ("FileName", $"{file}"),
+                        new XElement("Size", $"{size}")
                         )
             );
         }
@@ -60,12 +60,10 @@ class Digger
     private static void Main(string[] args)
     {
         // Inputs 
-//        Console.WriteLine("Enter Path: ");
-//        string directory = Console.ReadLine();
-//        Console.WriteLine("Enter output file: ");
-//        string outputFile= Console.ReadLine();
-        string directory = "/home/briandrennan/Projects/Digger";
-        string outputFile = "output.html";
+        Console.WriteLine("Enter Path: ");
+        string directory = Console.ReadLine();
+        Console.WriteLine("Enter output file: ");
+        string outputFile= Console.ReadLine();
 
         // Init our digger
         Digger FileDigger = new Digger();
