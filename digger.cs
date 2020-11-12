@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Xml.Linq;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -41,16 +42,37 @@ class Digger
         foreach (var file in files) 
         {
             string size = FormatByteSize(new FileInfo(file).Length);
+            string extension = Path.GetExtension(file);
 
-            filesList.Add(new XElement("File", 
-                        new XElement ("FileName", $"{file}"),
-                        new XElement("Size", $"{size}")
-                        )
-            );
+            // Check if Extension Exists
+            bool hasExtension = (
+                from ext in filesList.Elements("File").Elements("FileExtension")
+                where ext.Value == extension
+                select ext
+            ).Any();
+
+            if (hasExtension)
+            {
+                // Get the Element
+                XElement temp = (
+                    from ext in filesList.Elements("File").Elements("FileExtension")
+                    where ext.Value == extension
+                    select ext
+                ).Single();
+            }
+            else
+            {
+                filesList.Add( new XElement("File", 
+                    new XElement ("FileExtension", $"{extension}"),
+                    new XElement("Size", $"{size}"),
+                    new XElement("Count", 0))
+                );
+            }
         }
         
         root.Add(filesList);
         doc.Add(root);
+
 
         Console.WriteLine(doc);
         return doc;
@@ -60,10 +82,12 @@ class Digger
     private static void Main(string[] args)
     {
         // Inputs 
-        Console.WriteLine("Enter Path: ");
-        string directory = Console.ReadLine();
-        Console.WriteLine("Enter output file: ");
-        string outputFile= Console.ReadLine();
+       // Console.WriteLine("Enter Path: ");
+       // string directory = Console.ReadLine();
+       // Console.WriteLine("Enter output file: ");
+       // string outputFile= Console.ReadLine();
+       string directory = "/home/briandrennan/Downloads";
+       string outputFile = "output.html";
 
         // Init our digger
         Digger FileDigger = new Digger();
