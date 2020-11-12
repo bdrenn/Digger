@@ -55,10 +55,17 @@ class Digger
             {
                 // Get the Element
                 XElement temp = (
-                    from ext in filesList.Elements("File").Elements("FileExtension")
-                    where ext.Value == extension
-                    select ext
+                    from f in filesList.Elements("File")
+                    where f.Element("FileExtension").Value == extension
+                    select f 
                 ).Single();
+
+                /* TODO:
+                Increment the Count 
+                Increment the Size
+                */
+
+                //Console.WriteLine(temp.Element("Size").Value);
             }
             else
             {
@@ -82,12 +89,10 @@ class Digger
     private static void Main(string[] args)
     {
         // Inputs 
-       // Console.WriteLine("Enter Path: ");
-       // string directory = Console.ReadLine();
-       // Console.WriteLine("Enter output file: ");
-       // string outputFile= Console.ReadLine();
-       string directory = "/home/briandrennan/Downloads";
-       string outputFile = "output.html";
+        Console.WriteLine("Enter Path: ");
+        string directory = Console.ReadLine();
+        Console.WriteLine("Enter output file: ");
+        string outputFile= Console.ReadLine();
 
         // Init our digger
         Digger FileDigger = new Digger();
